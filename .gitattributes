@@ -1,0 +1,7 @@
+# Force LF on everything that runs inside the Linux ISO build.
+* text=auto eol=lf
+*.conf  text eol=lf
+*.list.chroot text eol=lf
+*.hook.chroot text eol=lf
+auto/config text eol=lf
+config/includes.chroot/usr/local/bin/anlight-get text eol=lf
