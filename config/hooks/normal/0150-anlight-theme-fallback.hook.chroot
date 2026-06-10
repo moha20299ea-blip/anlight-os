@@ -1,0 +1,37 @@
+#!/bin/sh
+# Anlight OS - guarantee a DARK, clean look even if the WhiteSur/Nunito fetch failed.
+# Falls back to themes that are always present in the image (Arc-Dark, Papirus-Dark, Inter).
+set -e
+
+XS=/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+WM=/etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+GR=/etc/lightdm/lightdm-gtk-greeter.conf
+
+# GTK theme: WhiteSur-Dark -> Arc-Dark
+if [ ! -d /usr/share/themes/WhiteSur-Dark ]; then
+    echo "anlight: WhiteSur-Dark missing -> Arc-Dark"
+    sed -i 's/WhiteSur-Dark/Arc-Dark/g' "$XS" "$WM" "$GR" 2>/dev/null || true
+fi
+
+# Icons: WhiteSur-dark -> Papirus-Dark
+if [ ! -d /usr/share/icons/WhiteSur-dark ]; then
+    echo "anlight: WhiteSur icons missing -> Papirus-Dark"
+    sed -i 's/WhiteSur-dark/Papirus-Dark/g' "$XS" "$GR" 2>/dev/null || true
+fi
+
+# Cursor: Bibata -> Adwaita
+if [ ! -d /usr/share/icons/Bibata-Modern-Classic ]; then
+    echo "anlight: Bibata missing -> Adwaita"
+    sed -i 's/Bibata-Modern-Classic/Adwaita/g' "$XS" 2>/dev/null || true
+fi
+
+# Font: Nunito Sans -> Inter
+if ! fc-list 2>/dev/null | grep -qi "Nunito Sans"; then
+    echo "anlight: Nunito Sans missing -> Inter"
+    sed -i 's/Nunito Sans/Inter/g' "$XS" "$WM" "$GR" 2>/dev/null || true
+fi
+
+# refresh font + icon caches so everything is ready on first boot
+fc-cache -f >/dev/null 2>&1 || true
+[ -d /usr/share/icons/Papirus-Dark ] && gtk-update-icon-cache -f /usr/share/icons/Papirus-Dark >/dev/null 2>&1 || true
+[ -d /usr/share/icons/WhiteSur-dark ] && gtk-update-icon-cache -f /usr/share/icons/WhiteSur-dark >/dev/null 2>&1 || true

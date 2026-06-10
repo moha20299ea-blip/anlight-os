@@ -23,7 +23,8 @@ jobs:
             live-build debootstrap \
             git ca-certificates curl xorriso isolinux \
             syslinux-common squashfs-tools dosfstools mtools \
-            ffmpeg imagemagick sassc bc fontconfig coreutils
+            ffmpeg imagemagick sassc bc fontconfig coreutils \
+            libglib2.0-bin libgtk-3-bin libxml2-utils
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,11 +87,9 @@ jobs:
           curl -fsSL https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.6/Bibata-Modern-Classic.tar.xz -o /tmp/bibata.tar.xz \
             && tar -xf /tmp/bibata.tar.xz -C "$ICONS" \
             || echo "WARN: Bibata cursor fetch issue"
-          # Nunito Sans (static TTFs)
-          for w in Regular Bold SemiBold; do
-            curl -fsSL "https://github.com/google/fonts/raw/main/ofl/nunitosans/static/NunitoSans_10pt-${w}.ttf" \
-              -o "$FONTS/NunitoSans_10pt-${w}.ttf" || echo "WARN: Nunito $w fetch issue"
-          done
+          # Nunito Sans (variable font from google/fonts)
+          curl -fsSL "https://github.com/google/fonts/raw/main/ofl/nunitosans/NunitoSans%5BYTLC,opsz,wdth,wght%5D.ttf" \
+            -o "$FONTS/NunitoSans.ttf" && echo "Nunito Sans ok" || echo "WARN: Nunito fetch issue"
           set -e
           echo "theme stack step done"
 
