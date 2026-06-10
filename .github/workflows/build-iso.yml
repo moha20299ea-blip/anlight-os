@@ -40,8 +40,9 @@ jobs:
 
       - name: Rename ISO
         run: |
+          SHORT=$(echo "$GITHUB_SHA" | cut -c1-7)
           ISO=$(ls *.iso | head -n1)
-          mv "$ISO" "anlight-os-${GITHUB_SHA::7}.iso"
+          mv "$ISO" "anlight-os-${SHORT}.iso"
           ls -lh *.iso
 
       - name: Publish ISO as Release

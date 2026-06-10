@@ -10,6 +10,7 @@ lb config noauto \
 	--binary-images iso-hybrid \
 	--debian-installer live \
 	--security false \
+	--compression xz \
 	--archive-areas "main contrib non-free non-free-firmware" \
 	--apt-recommends false \
 	--bootappend-live "boot=live components quiet splash username=anlight hostname=anlight" \
