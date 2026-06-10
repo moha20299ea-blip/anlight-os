@@ -1,0 +1,25 @@
+#!/bin/sh
+# Anlight OS - desktop session bootstrap (compositor, dock, widgets, launcher, chime)
+
+# liquid-glass compositor
+pkill -x picom 2>/dev/null
+picom --config "$HOME/.config/picom/picom.conf" -b &
+
+# floating glass dock
+( sleep 1; plank ) &
+
+# desktop widget HUD
+( sleep 2; conky -c "$HOME/.config/conky/conky.conf" ) &
+
+# fullscreen Launchpad daemon (Super key toggles the app grid)
+( sleep 1; xfdashboard --daemonize ) &
+
+# startup chime (then silence)
+( sleep 2; paplay /usr/share/sounds/anlight/startup.oga 2>/dev/null ) &
+
+# welcome notification
+( sleep 5; notify-send -i /usr/share/backgrounds/anlight/logo.png \
+    "Welcome to Anlight OS" \
+    "by Aegis Raid Corp.  ·  type  anlight-get <package | github-url>  to install anything." ) &
+
+exit 0

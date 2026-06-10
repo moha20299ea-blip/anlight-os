@@ -1,0 +1,8 @@
+# generated boot frames (CI extracts these from brand/boot-source.mp4)
+config/includes.chroot/usr/share/plymouth/themes/anlight/anim-*.png
+# generated wallpapers (CI renders these)
+config/includes.chroot/usr/share/backgrounds/anlight/aurora.png
+config/includes.chroot/usr/share/backgrounds/anlight/aurora-blur.png
+# local scratch
+.bootwork/
+*.iso

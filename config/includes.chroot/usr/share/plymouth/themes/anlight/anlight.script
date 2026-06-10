@@ -1,0 +1,42 @@
+## Anlight OS boot animation -- frame sequence (generated from brand/boot-source.mp4)
+## Dark aurora background, logo reveal, holds on final frame.
+
+Window.SetBackgroundTopColor(0.04, 0.04, 0.06);
+Window.SetBackgroundBottomColor(0.02, 0.02, 0.03);
+
+nframes = 60;
+
+fun pad(n) {
+    s = "000" + n;
+    if (n >= 10)   s = "00" + n;
+    if (n >= 100)  s = "0" + n;
+    if (n >= 1000) s = "" + n;
+    return s;
+}
+
+# preload frames
+for (i = 1; i <= nframes; i++) {
+    frames[i] = Image("anim-" + pad(i) + ".png");
+}
+
+logo = Sprite();
+logo.SetImage(frames[1]);
+logo.SetX(Window.GetX() + Window.GetWidth()  / 2 - frames[1].GetWidth()  / 2);
+logo.SetY(Window.GetY() + Window.GetHeight() / 2 - frames[1].GetHeight() / 2);
+logo.SetZ(10);
+
+tick = 0;
+fun refresh() {
+    # advance ~ every 2nd refresh => ~2.4s reveal, then hold last frame
+    idx = Math.Int(tick / 2) + 1;
+    if (idx > nframes) idx = nframes;
+    logo.SetImage(frames[idx]);
+    tick++;
+}
+Plymouth.SetRefreshFunction(refresh);
+
+# password prompt (for encrypted-disk installs later)
+fun display_password(prompt, bullets) {
+    logo.SetOpacity(1);
+}
+Plymouth.SetDisplayPasswordFunction(display_password);

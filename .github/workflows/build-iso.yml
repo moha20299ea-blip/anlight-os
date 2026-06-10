@@ -11,25 +11,84 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
-    # Build inside real Debian bookworm so live-build matches the target distro.
+    timeout-minutes: 120
     container:
       image: debian:bookworm
       options: --privileged
     steps:
-      - name: Install build tools
+      - name: Install build + asset tools
         run: |
           apt-get update
           apt-get install -y \
             live-build debootstrap \
             git ca-certificates curl xorriso isolinux \
-            syslinux-common squashfs-tools dosfstools mtools
+            syslinux-common squashfs-tools dosfstools mtools \
+            ffmpeg imagemagick sassc bc fontconfig coreutils
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Free up disk space
-        run: df -h
+      - name: Generate boot animation frames (from your clip)
+        run: |
+          PT=config/includes.chroot/usr/share/plymouth/themes/anlight
+          mkdir -p "$PT"
+          # crop watermark, darken (negate -> near-black bg + cream text + cyan dot), scale, resample
+          ffmpeg -y -loglevel error -i brand/boot-source.mp4 \
+            -vf "crop=960:630:0:0,negate,scale=720:-2,fps=24" "$PT/anim-%04d.png"
+          N=$(ls "$PT"/anim-*.png | wc -l)
+          echo "generated $N boot frames"
+          sed -i "s/^nframes = .*/nframes = ${N};/" "$PT/anlight.script"
+
+      - name: Generate Aurora wallpaper + login background + logo
+        run: |
+          BG=config/includes.chroot/usr/share/backgrounds/anlight
+          mkdir -p "$BG"
+          # purple base gradient + soft cyan radial glow (Aurora signature)
+          convert -size 1920x1080 gradient:'#1b1147'-'#05060e' \
+            \( -size 1920x1080 radial-gradient:'#00E5FF'-'#000000' -evaluate multiply 0.18 \) \
+            -compose screen -composite "$BG/aurora.png"
+          # blurred version for the login screen
+          convert "$BG/aurora.png" -blur 0x18 -modulate 92 "$BG/aurora-blur.png"
+          # circular purple->cyan logo (notifications + login avatar)
+          convert -size 256x256 radial-gradient:'#7C4DFF'-'#00C2FF' \
+            \( -size 256x256 xc:black -fill white -draw "circle 128,128 128,6" \) \
+            -alpha off -compose CopyOpacity -composite "$BG/logo.png"
+
+      - name: Generate startup chime
+        run: |
+          SND=config/includes.chroot/usr/share/sounds/anlight
+          mkdir -p "$SND"
+          ffmpeg -y -loglevel error -f lavfi \
+            -i "sine=frequency=587.33:duration=1.4" \
+            -af "volume=0.22,aecho=0.8:0.7:55:0.35,afade=t=out:st=0.7:d=0.7" \
+            "$SND/startup.oga" || echo "chime gen skipped"
+
+      - name: Install macOS theme stack (WhiteSur + Bibata + Nunito)
+        run: |
+          set +e
+          THEMES=config/includes.chroot/usr/share/themes
+          ICONS=config/includes.chroot/usr/share/icons
+          FONTS=config/includes.chroot/usr/share/fonts/truetype/nunitosans
+          mkdir -p "$THEMES" "$ICONS" "$FONTS"
+          # WhiteSur GTK (dark)
+          git clone --depth=1 https://github.com/vinceliuice/WhiteSur-gtk-theme /tmp/wsgtk \
+            && /tmp/wsgtk/install.sh -d "$THEMES" -c dark -t default \
+            || echo "WARN: WhiteSur GTK install issue"
+          # WhiteSur icons
+          git clone --depth=1 https://github.com/vinceliuice/WhiteSur-icon-theme /tmp/wsicon \
+            && /tmp/wsicon/install.sh -d "$ICONS" \
+            || echo "WARN: WhiteSur icons install issue"
+          # Bibata Modern cursor
+          curl -fsSL https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.6/Bibata-Modern-Classic.tar.xz -o /tmp/bibata.tar.xz \
+            && tar -xf /tmp/bibata.tar.xz -C "$ICONS" \
+            || echo "WARN: Bibata cursor fetch issue"
+          # Nunito Sans (static TTFs)
+          for w in Regular Bold SemiBold; do
+            curl -fsSL "https://github.com/google/fonts/raw/main/ofl/nunitosans/static/NunitoSans_10pt-${w}.ttf" \
+              -o "$FONTS/NunitoSans_10pt-${w}.ttf" || echo "WARN: Nunito $w fetch issue"
+          done
+          set -e
+          echo "theme stack step done"
 
       - name: Build ISO
         run: |
@@ -38,19 +97,35 @@ jobs:
           lb build
           ls -lh *.iso
 
-      - name: Rename ISO
+      - name: Rename + split if over GitHub's 2 GiB release limit
         run: |
           SHORT=$(echo "$GITHUB_SHA" | cut -c1-7)
           ISO=$(ls *.iso | head -n1)
-          mv "$ISO" "anlight-os-${SHORT}.iso"
-          ls -lh *.iso
+          OUT="anlight-os-${SHORT}.iso"
+          mv "$ISO" "$OUT"
+          SIZE=$(stat -c%s "$OUT")
+          echo "ISO size: $((SIZE/1024/1024)) MB"
+          if [ "$SIZE" -gt 2040109465 ]; then
+            echo "Over ~1.9 GiB -> splitting into parts for the release"
+            split -b 1900M -d "$OUT" "${OUT}.part"
+            rm -f "$OUT"
+            ls -lh ${OUT}.part*
+          fi
+          ls -lh anlight-os-*
 
-      - name: Publish ISO as Release
+      - name: Publish to Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Anlight OS build ${{ github.run_number }}
-          files: anlight-os-*.iso
+          name: Anlight OS 0.2 build ${{ github.run_number }}
+          files: anlight-os-*
           body: |
-            Automated Anlight OS ISO build.
-            Flash with Rufus/balenaEtcher or boot in QEMU/VirtualBox.
+            Anlight OS 0.2 "Aurora" — by Aegis Raid Corp.
+
+            Login: user **anlight** / password **aegis**
+
+            If the ISO was split into `.partNN` files, recombine before use:
+            - Linux/macOS:  `cat anlight-os-*.iso.part* > anlight-os.iso`
+            - Windows (cmd): `copy /b anlight-os-XXXXXXX.iso.part00 + anlight-os-XXXXXXX.iso.part01 anlight-os.iso`
+
+            Flash with Rufus/balenaEtcher, or boot in VirtualBox/QEMU.

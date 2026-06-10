@@ -1,35 +1,25 @@
 #!/bin/sh
-# Anlight OS - guaranteed graphical auto-login (no password screen).
+# Anlight OS - login setup: glass greeter, known credentials (anlight / aegis), XFCE session.
 set -e
 
-# lightdm: auto-login the live user straight into XFCE
+# use the gtk greeter + XFCE session
 mkdir -p /etc/lightdm/lightdm.conf.d
-cat > /etc/lightdm/lightdm.conf.d/10-anlight-autologin.conf <<'EOF'
+cat > /etc/lightdm/lightdm.conf.d/20-anlight.conf <<'EOF'
 [Seat:*]
-autologin-user=anlight
-autologin-user-timeout=0
-autologin-session=xfce
+greeter-session=lightdm-gtk-greeter
 user-session=xfce
 EOF
 
-# the group lightdm's autologin PAM rule checks (live-config adds the live user to it)
-groupadd -f autologin || true
-groupadd -f nopasswdlogin || true
-
-# also set a known fallback password for the live user, in case a prompt ever appears
-# (live-config creates 'anlight' at boot; this hook drops a first-boot script to set it)
+# first-boot: give the live user a known password (anlight / aegis) so the greeter works
 mkdir -p /usr/local/lib/anlight
 cat > /usr/local/lib/anlight/set-pass.sh <<'EOF'
 #!/bin/sh
-# runs once at boot: ensure the anlight user has a known password + autologin groups
 if id anlight >/dev/null 2>&1; then
   echo 'anlight:aegis' | chpasswd 2>/dev/null || true
-  usermod -aG autologin,nopasswdlogin anlight 2>/dev/null || true
 fi
 EOF
 chmod +x /usr/local/lib/anlight/set-pass.sh
 
-# hook it into early boot via a systemd unit
 cat > /etc/systemd/system/anlight-firstboot.service <<'EOF'
 [Unit]
 Description=Anlight first-boot user setup

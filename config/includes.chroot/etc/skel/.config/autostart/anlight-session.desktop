@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Anlight Session
+Comment=Anlight desktop bootstrap (compositor, dock, widgets, launcher)
+Exec=/usr/local/bin/anlight-session
+OnlyShowIn=XFCE;
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

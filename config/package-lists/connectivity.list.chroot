@@ -1,0 +1,20 @@
+# Anlight OS - wifi / bluetooth / audio that actually works on real hardware
+# (recommends are disabled for slimness, so we list the essentials explicitly)
+wpasupplicant
+wireless-tools
+iw
+rfkill
+bluez
+bluez-tools
+pulseaudio-module-bluetooth
+# common laptop wifi firmware
+firmware-linux-free
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-brcm80211
+# xfce panel plugins (no-recommends means we add them by hand)
+xfce4-whiskermenu-plugin
+xfce4-pulseaudio-plugin
+xfce4-power-manager
+xfce4-notifyd

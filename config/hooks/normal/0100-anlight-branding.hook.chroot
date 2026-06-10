@@ -2,18 +2,21 @@
 # Anlight OS - branding + defaults baked into the image
 set -e
 
-# make the installer executable
+# make the CLI tools executable
 chmod +x /usr/local/bin/anlight-get || true
+chmod +x /usr/local/bin/anlight-session || true
 
 # OS identity
 cat > /etc/os-release <<'EOF'
-PRETTY_NAME="Anlight OS"
+PRETTY_NAME="Anlight OS 0.2 (Aurora)"
 NAME="Anlight OS"
-VERSION="0.1 (Aurora)"
+VERSION="0.2 (Aurora)"
+VERSION_ID="0.2"
 ID=anlight
 ID_LIKE=debian
 HOME_URL="https://github.com/moha20299ea-blip/anlight-os"
 SUPPORT_URL="https://github.com/moha20299ea-blip/anlight-os"
+LOGO=anlight
 EOF
 
 echo "anlight" > /etc/hostname
@@ -21,17 +24,15 @@ echo "anlight" > /etc/hostname
 # message of the day
 cat > /etc/motd <<'EOF'
 
-  Anlight OS — by Aegis Raid
-  Type:  anlight-get <package | github-url>   to install anything, instantly.
+  Anlight OS 0.2  —  by Aegis Raid Corp.
+  Install anything instantly:  anlight-get <package | pip:x | github-url>
 
 EOF
 
-# autostart picom (animations) for every user
-mkdir -p /etc/skel/.config/autostart
-cat > /etc/skel/.config/autostart/picom.desktop <<'EOF'
-[Desktop Entry]
-Type=Application
-Name=Picom Compositor
-Exec=picom --config /home/anlight/.config/picom/picom.conf
-X-GNOME-Autostart-enabled=true
+# default applications: Firefox as browser
+cat > /usr/share/applications/defaults.list <<'EOF'
+[Default Applications]
+x-scheme-handler/http=firefox-esr.desktop
+x-scheme-handler/https=firefox-esr.desktop
+text/html=firefox-esr.desktop
 EOF

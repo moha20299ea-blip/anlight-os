@@ -1,5 +1,13 @@
 # Force LF on everything that runs inside the Linux ISO build.
 * text=auto eol=lf
+
+# never touch binaries
+*.mp4 binary
+*.png binary
+*.oga binary
+*.ttf binary
+*.xz binary
+*.iso binary
 *.conf  text eol=lf
 *.list.chroot text eol=lf
 *.hook.chroot text eol=lf
