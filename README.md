@@ -124,6 +124,34 @@ Everything that defines the OS lives in `config/` (package lists, theme configs,
 
 ---
 
+## ⚔️ Who We Are — The Mission
+
+We are **Aegis Raid**. We don't tell you our names. We don't need to.
+
+We're a collective of young hackers, builders, and digital guardians who got **sick and tired** of watching the internet rot. Sick of opening a screen and finding **predators stalking children**. Sick of the **scammers** draining grandparents' life savings. Sick of the **traffickers**, the **CSAM** peddlers, the **gore** dealers, the parasites who hide in the dark corners of the clearnet and crawl even deeper into **Tor**, thinking the shadows make them untouchable.
+
+They were wrong. The shadows are where we **hunt**.
+
+**Hear this clearly:** if you prey on children, if you scam the vulnerable, if you trade in abuse and call it a business — you are not anonymous, you are not safe, and you are not welcome on *our* internet. You are **vermin**, and we are the light that drags vermin out from under the floorboards. 🔦
+
+This is bigger than one OS. **Anlight is a weapon for the people who fight back.** Every tool we ship, every line we write, exists to tilt the field toward the defenders — the researchers, the reporters, the parents, the cops, the kids who deserve a safer net than the one they were handed.
+
+**Our code of war:**
+- 🕯️ **Expose, don't avenge.** We investigate, we document, we hand evidence to the authorities who can end it. Justice, not vigilante chaos.
+- 🛡️ **Protect the victim first.** Every action starts and ends with the person being hurt.
+- 🌍 **Light *and* dark.** Clearnet, deep web, Tor — wherever the predators run, the tooling follows.
+- 📣 **Arm the good guys.** Free tools. Open knowledge. No gatekeeping the people doing the right thing.
+
+### 🧭 Where we're headed
+
+Anlight OS is **step one**. The destination is a whole **ecosystem for digital guardians** — OSINT toolkits for tracking predators and scam rings, training to turn curious kids into capable defenders, a community that watches the dark so the rest of the world doesn't have to, and a name that makes the scum on the other side of the screen **nervous**.
+
+The internet was supposed to be humanity's greatest light. We're not handing it to the monsters without a fight.
+
+**We are Aegis Raid. We guard the light. We raid the dark.** 🛡️🔥
+
+---
+
 <div align="center">
 
 ### 🛡️ Anlight OS — *power, made beautiful.*
