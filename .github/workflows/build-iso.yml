@@ -12,26 +12,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    # Build inside real Debian bookworm so live-build matches the target distro.
+    container:
+      image: debian:bookworm
+      options: --privileged
     steps:
+      - name: Install build tools
+        run: |
+          apt-get update
+          apt-get install -y \
+            live-build debootstrap \
+            git ca-certificates curl xorriso isolinux \
+            syslinux-common squashfs-tools dosfstools mtools
+
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Free up disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force || true
-          df -h
-
-      - name: Install live-build
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y live-build debootstrap
+        run: df -h
 
       - name: Build ISO
         run: |
           chmod +x auto/config
-          sudo lb config
-          sudo lb build
+          lb config
+          lb build
           ls -lh *.iso
 
       - name: Rename ISO
