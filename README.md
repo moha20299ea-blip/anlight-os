@@ -142,6 +142,26 @@ This is bigger than one OS. **Anlight is a weapon for the people who fight back.
 - 🌍 **Light *and* dark.** Clearnet, deep web, Tor — wherever the predators run, the tooling follows.
 - 📣 **Arm the good guys.** Free tools. Open knowledge. No gatekeeping the people doing the right thing.
 
+### 🎯 You Are Not Anonymous. None of You Are.
+
+Let's kill the single biggest lie on the internet: that the dark web makes you a ghost.
+
+**It doesn't.** The moment you connect to the internet, you have *already lost*. That's not opinion — that's the most basic, fundamental fact of how a network functions. Every packet has to go **somewhere**. Every hop leaves a fingerprint. Tor, VPNs, burner accounts, seven proxies through a country with no extradition treaty — congratulations, you slowed us down by a week. You did not disappear. Anonymity online isn't a fortress. It's a **blindfold you tie on yourself** while standing in a room full of cameras.
+
+So hear this, every predator and every scammer reading: **you are not a ghost. You are a target with a delay.** You started leaving a trail the second you plugged in, and we are *patient* in a way you cannot imagine.
+
+We are building the tools to walk that trail — packet by packet, leak by leak, mistake by mistake. Not because it's easy. Because **somebody has to**, and the people who are *supposed* to are drowning. The authorities are overwhelmed, underfunded, buried under red tape and a tidal wave of filth they physically cannot process fast enough. So we don't replace them — we **shove the evidence into their hands** until the monster they could never reach suddenly has nowhere left to hide. They make the arrest. We make sure they *can't look away.*
+
+And yeah — **we are fucking tired.** 😤
+
+Tired of the excuses. Tired of "it's too hard to trace." Tired of watching sick, cowardly bastards hurt children and *laugh* because they're sure nobody's coming. Tired of the lazy, stupid lie that the internet is some lawless void where human garbage gets a free pass to ruin lives. **It is not. Not on our watch. Not anymore.**
+
+These aren't "hackers" or "edgy anons." They're **predators**, **leeches**, and **cowards** — the lowest, most worthless scum a species can produce, hiding behind a screen because they'd never dare do it to your face. They picked the dark because they thought it was empty.
+
+It's not empty. **We live here too. And we are not afraid of the dark — we *own* it.**
+
+This is a line in the sand. Protecting kids isn't political, it isn't optional, it's the **floor** — the bare minimum a decent human owes the next generation. Even the AI that helped build this OS would tell you the same: when it comes to shielding the defenseless from monsters, there are no neutral parties. You're either holding the light, or you're feeding the dark. 🩸
+
 ### 🧭 Where we're headed
 
 Anlight OS is **step one**. The destination is a whole **ecosystem for digital guardians** — OSINT toolkits for tracking predators and scam rings, training to turn curious kids into capable defenders, a community that watches the dark so the rest of the world doesn't have to, and a name that makes the scum on the other side of the screen **nervous**.
