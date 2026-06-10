@@ -30,6 +30,24 @@ Most security distros look like they were designed in 2009. Anlight looks like t
 
 ---
 
+## ⚖️ Ground Rules — Read Before You Use
+
+Anlight is a tool for **defenders**. It is **not** a hideout for criminals. By downloading or using Anlight OS, you agree to these rules — they're simple, and they're not optional:
+
+1. ✅ **Legal use only.** Use Anlight strictly within the law of your country and any system you touch.
+2. 🔐 **Get permission first.** Never scan, access, or test a system, network, or account you don't own or have **written authorization** to test.
+3. 🚫 **No crime, ever.** Do not use Anlight to commit, plan, or assist fraud, theft, extortion, stalking, harassment, or any illegal act.
+4. 🛑 **No illegal hosting or hiding.** Do not use Anlight to host, store, share, or conceal illegal content or activity — including CSAM, trafficking, illegal weapons/drugs/arms deals, stolen data, or murder-for-hire.
+5. 🦠 **No malicious hacking.** No deploying malware, ransomware, or attacks meant to damage, steal, or extort. Security tools are for **protecting**, not preying.
+6. 🕵️ **Respect privacy.** Don't weaponize these tools to surveil, dox, or violate the privacy of innocent people.
+7. 🤝 **We side with the law.** Anlight and Aegis Raid support lawful investigation and cooperate with legitimate authorities. We are **not** a shield for the people we hunt.
+
+> **Break these rules and you're not a user — you're a target.** Everything you do on a network leaves a trail, and Anlight was built by people who follow trails for a living. You've been warned.
+
+*Anlight OS is provided "as is," for lawful security research and education. The authors are not responsible for misuse.*
+
+---
+
 ## ⚡ Why Anlight?
 
 | | |
@@ -116,11 +134,28 @@ Everything that defines the OS lives in `config/` (package lists, theme configs,
 
 ## 🗺️ Roadmap
 
+**🤖 AI & Automation**
+- [ ] **AI-automated white-hat assistant** — an on-board AI that runs recon, triages findings, and suggests next steps in plain language
+- [ ] **Autonomous threat hunting** — AI that watches feeds and surfaces predators, scams, and leaks automatically
+- [ ] **AI OSINT engine** — point it at a lead, it correlates the trail across clearnet + dark web
+- [ ] **Smart report generator** — turns raw findings into clean, court-ready evidence packets
+- [ ] **`anlight-get` AI mode** — describe what you want to do, it picks and installs the right tools
+
+**🎨 Experience**
 - [ ] True animated video wallpaper toggle
 - [ ] One-click light/dark + auto-by-time theme switching
-- [ ] Optional Kali-repo bridge for an even deeper toolkit
 - [ ] A polished first-run welcome & setup app
+- [ ] True macOS-style WhiteSur theme baked in
+
+**🧰 Power**
+- [ ] Optional Kali-repo bridge for an even deeper toolkit
 - [ ] Persistence + full installer to disk
+- [ ] Curated Aegis Raid investigation toolkit (OSINT, anti-scam, anti-CSAM tracing)
+- [ ] Encrypted vault for evidence handling
+
+**🌍 Community**
+- [ ] Training tracks — turn curious beginners into capable defenders
+- [ ] A guardian network watching the dark so others don't have to
 
 ---
 
