@@ -137,7 +137,7 @@ They were wrong. The shadows are where we **hunt**.
 This is bigger than one OS. **Anlight is a weapon for the people who fight back.** Every tool we ship, every line we write, exists to tilt the field toward the defenders — the researchers, the reporters, the parents, the cops, the kids who deserve a safer net than the one they were handed.
 
 **Our code of war:**
-- 🕯️ **Expose, don't avenge.** We investigate, we document, we hand evidence to the authorities who can end it. Justice, not vigilante chaos.
+- 🕯️ **Expose, don't avenge.** We investigate, we document, we hand evidence to the authorities who can end it. Justice, not vigilante chaos. Well, if this doesn't WORK!!, WELL WILL ACT BY OURSELVES, WILL RUIN YOUR LIVES/LIFES, we will hurt you, will you EXPOSE YOU, till you die crying...!
 - 🛡️ **Protect the victim first.** Every action starts and ends with the person being hurt.
 - 🌍 **Light *and* dark.** Clearnet, deep web, Tor — wherever the predators run, the tooling follows.
 - 📣 **Arm the good guys.** Free tools. Open knowledge. No gatekeeping the people doing the right thing.
