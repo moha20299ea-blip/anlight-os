@@ -1,0 +1,26 @@
+# Anlight OS - lightweight elegant desktop (XFCE + compositor animations)
+xorg
+xserver-xorg
+lightdm
+lightdm-gtk-greeter
+xfce4
+xfce4-goodies
+xfce4-terminal
+xfce4-whiskermenu-plugin
+picom
+papirus-icon-theme
+fonts-firacode
+fonts-jetbrains-mono
+network-manager
+network-manager-gnome
+blueman
+pulseaudio
+pavucontrol
+plymouth
+plymouth-themes
+feh
+thunar
+thunar-archive-plugin
+file-roller
+mousepad
+ristretto

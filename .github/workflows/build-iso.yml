@@ -1,0 +1,51 @@
+name: Build Anlight OS ISO
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force || true
+          df -h
+
+      - name: Install live-build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap
+
+      - name: Build ISO
+        run: |
+          chmod +x auto/config
+          sudo lb config
+          sudo lb build
+          ls -lh *.iso
+
+      - name: Rename ISO
+        run: |
+          ISO=$(ls *.iso | head -n1)
+          mv "$ISO" "anlight-os-${GITHUB_SHA::7}.iso"
+          ls -lh *.iso
+
+      - name: Publish ISO as Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Anlight OS build ${{ github.run_number }}
+          files: anlight-os-*.iso
+          body: |
+            Automated Anlight OS ISO build.
+            Flash with Rufus/balenaEtcher or boot in QEMU/VirtualBox.

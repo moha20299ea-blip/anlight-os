@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+# anlight-get - the dead-simple Anlight OS package installer.
+# Usage:
+#   anlight-get nmap                 -> installs an apt package
+#   anlight-get pip:requests         -> installs a python package (pipx/pip)
+#   anlight-get https://github.com/user/repo  -> clones + auto-installs a tool
+#   anlight-get metasploit           -> known heavy tool, uses its official installer
+#
+# The whole point: you say the name or the link, and it just works.
+set -euo pipefail
+
+C_RESET='\033[0m'; C_CYAN='\033[1;36m'; C_GREEN='\033[1;32m'; C_RED='\033[1;31m'; C_DIM='\033[2m'
+say()  { echo -e "${C_CYAN}anlight${C_RESET} ${C_DIM}»${C_RESET} $*"; }
+ok()   { echo -e "${C_GREEN}✓${C_RESET} $*"; }
+die()  { echo -e "${C_RED}✗${C_RESET} $*" >&2; exit 1; }
+
+TOOLS_DIR="${HOME}/.anlight/tools"
+mkdir -p "$TOOLS_DIR"
+
+[ $# -ge 1 ] || die "usage: anlight-get <package | pip:pkg | github-url | metasploit | burpsuite>"
+TARGET="$1"
+
+install_apt() {
+	say "installing system package: ${C_GREEN}$1${C_RESET}"
+	sudo apt-get update -qq
+	sudo apt-get install -y "$1" && ok "$1 ready — launch it from the terminal or menu."
+}
+
+install_pip() {
+	local pkg="${1#pip:}"
+	say "installing python tool: ${C_GREEN}$pkg${C_RESET}"
+	if command -v pipx >/dev/null; then pipx install "$pkg"; else pip install --user "$pkg"; fi
+	ok "$pkg installed."
+}
+
+install_git() {
+	local url="$1"; local name; name="$(basename "${url%.git}")"
+	local dest="${TOOLS_DIR}/${name}"
+	say "fetching from github: ${C_GREEN}$name${C_RESET}"
+	[ -d "$dest" ] && { say "already have it, updating..."; git -C "$dest" pull --ff-only; } || git clone --depth 1 "$url" "$dest"
+	# best-effort auto-setup
+	if [ -f "$dest/requirements.txt" ]; then say "installing python deps..."; pip install --user -r "$dest/requirements.txt" || true; fi
+	if [ -f "$dest/setup.py" ] || [ -f "$dest/pyproject.toml" ]; then pip install --user "$dest" || true; fi
+	if [ -f "$dest/Makefile" ]; then say "running make..."; make -C "$dest" || true; fi
+	# expose a launcher on PATH
+	local main
+	main="$(find "$dest" -maxdepth 2 -name '*.py' | head -n1 || true)"
+	ok "cloned to ${dest}"
+	[ -n "$main" ] && echo -e "   ${C_DIM}run it with:${C_RESET} python3 $main"
+}
+
+install_known() {
+	case "$1" in
+		metasploit|msf)
+			say "installing Metasploit Framework (official installer)..."
+			curl -fsSL https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb -o /tmp/msfinstall
+			chmod +x /tmp/msfinstall && sudo /tmp/msfinstall && ok "metasploit ready: run 'msfconsole'" ;;
+		burp|burpsuite)
+			say "burp suite community: grabbing latest from PortSwigger..."
+			install_apt burpsuite || die "couldn't auto-install burp; download from portswigger.net" ;;
+		*) return 1 ;;
+	esac
+}
+
+case "$TARGET" in
+	pip:*)                 install_pip "$TARGET" ;;
+	http://*|https://*|git@*) install_git "$TARGET" ;;
+	metasploit|msf|burp|burpsuite) install_known "$TARGET" ;;
+	*)                     install_apt "$TARGET" ;;
+esac
