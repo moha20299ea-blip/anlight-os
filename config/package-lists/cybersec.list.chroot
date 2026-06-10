@@ -10,7 +10,6 @@ hashcat
 sqlmap
 nikto
 dirb
-gobuster
 netcat-traditional
 tcpdump
 net-tools
@@ -43,4 +42,4 @@ steghide
 ltrace
 strace
 gdb
-radare2
+# radare2 + gobuster: not in Debian bookworm repos — install via `anlight-get` on demand

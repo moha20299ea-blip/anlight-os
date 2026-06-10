@@ -58,6 +58,14 @@ install_known() {
 		burp|burpsuite)
 			say "burp suite community: grabbing latest from PortSwigger..."
 			install_apt burpsuite || die "couldn't auto-install burp; download from portswigger.net" ;;
+		radare2|r2)
+			say "building radare2 from source (not in Debian repos)..."
+			git clone --depth 1 https://github.com/radareorg/radare2 "${TOOLS_DIR}/radare2"
+			"${TOOLS_DIR}/radare2/sys/install.sh" && ok "radare2 ready: run 'r2'" ;;
+		gobuster)
+			say "installing gobuster via go..."
+			command -v go >/dev/null || install_apt golang
+			go install github.com/OJ/gobuster/v3@latest && ok "gobuster ready (in ~/go/bin)" ;;
 		*) return 1 ;;
 	esac
 }
@@ -65,6 +73,6 @@ install_known() {
 case "$TARGET" in
 	pip:*)                 install_pip "$TARGET" ;;
 	http://*|https://*|git@*) install_git "$TARGET" ;;
-	metasploit|msf|burp|burpsuite) install_known "$TARGET" ;;
+	metasploit|msf|burp|burpsuite|radare2|r2|gobuster) install_known "$TARGET" ;;
 	*)                     install_apt "$TARGET" ;;
 esac
