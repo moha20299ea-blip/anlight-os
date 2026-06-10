@@ -1,8 +1,0 @@
-[Plymouth Theme]
-Name=Anlight
-Description=Anlight OS boot animation (Aegis Raid)
-ModuleName=script
-
-[script]
-ImageDir=/usr/share/plymouth/themes/anlight
-ScriptFile=/usr/share/plymouth/themes/anlight/anlight.script

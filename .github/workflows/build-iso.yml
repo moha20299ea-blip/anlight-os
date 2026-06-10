@@ -24,22 +24,21 @@ jobs:
             git ca-certificates curl xorriso isolinux \
             syslinux-common squashfs-tools dosfstools mtools \
             ffmpeg imagemagick sassc bc fontconfig coreutils \
-            libglib2.0-bin libgtk-3-bin libxml2-utils
+            libglib2.0-bin libgtk-3-bin libxml2-utils fonts-dejavu-core
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate boot animation frames (from your clip)
+      - name: Generate boot spinner watermark
         continue-on-error: true
         run: |
-          PT=config/includes.chroot/usr/share/plymouth/themes/anlight
+          PT=config/includes.chroot/usr/share/plymouth/themes/spinner
           mkdir -p "$PT"
-          # crop watermark, darken (negate -> near-black bg + cream text + cyan dot), scale, resample
-          ffmpeg -y -loglevel error -i brand/boot-source.mp4 \
-            -vf "crop=960:630:0:0,negate,scale=720:-2,fps=24" "$PT/anim-%04d.png"
-          N=$(ls "$PT"/anim-*.png | wc -l)
-          echo "generated $N boot frames"
-          sed -i "s/^nframes = .*/nframes = ${N};/" "$PT/anlight.script"
+          # "Anlight OS." branding shown under the spinning dots
+          convert -size 760x180 xc:none -gravity center \
+            -font /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf -pointsize 64 \
+            -fill '#e8e4d4' -annotate +0+0 'Anlight OS.' \
+            "$PT/watermark.png" && echo "watermark ok" || echo "watermark gen skipped"
 
       - name: Generate Aurora wallpaper + login background + logo
         continue-on-error: true

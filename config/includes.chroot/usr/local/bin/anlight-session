@@ -1,5 +1,14 @@
 #!/bin/sh
-# Anlight OS - desktop session bootstrap (compositor, dock, widgets, launcher, chime)
+# Anlight OS - desktop session bootstrap (wallpaper, compositor, dock, widgets, chime)
+
+# guarantee the aurora wallpaper on every monitor (don't trust a default backdrop)
+(
+  sleep 1
+  for p in $(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep -E 'last-image$'); do
+    xfconf-query -c xfce4-desktop -p "$p" -s /usr/share/backgrounds/anlight/aurora.png 2>/dev/null
+  done
+  feh --bg-fill /usr/share/backgrounds/anlight/aurora.png 2>/dev/null
+) &
 
 # liquid-glass compositor
 pkill -x picom 2>/dev/null

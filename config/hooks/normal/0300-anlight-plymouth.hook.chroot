@@ -1,12 +1,11 @@
 #!/bin/sh
-# Anlight OS - activate the custom Plymouth boot theme + clean (textless) boot
+# Anlight OS - reliable spinning boot (stock 'spinner' theme + Anlight watermark)
 set -e
 
 if command -v plymouth-set-default-theme >/dev/null 2>&1; then
-    plymouth-set-default-theme anlight || true
+    plymouth-set-default-theme spinner || true
 fi
 
-# make sure the frames are pulled into the initramfs
 if command -v update-initramfs >/dev/null 2>&1; then
     update-initramfs -u || true
 fi

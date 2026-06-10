@@ -1,21 +1,28 @@
 #!/bin/sh
-# Anlight OS - login setup: glass greeter, known credentials (anlight / aegis), XFCE session.
+# Anlight OS - AUTOLOGIN straight to the dark XFCE desktop (no greeter, no cream box).
 set -e
 
-# use the gtk greeter + XFCE session
+# groups lightdm autologin checks
+groupadd -f autologin || true
+groupadd -f nopasswdlogin || true
+
+# autologin the live user directly into XFCE
 mkdir -p /etc/lightdm/lightdm.conf.d
 cat > /etc/lightdm/lightdm.conf.d/20-anlight.conf <<'EOF'
 [Seat:*]
-greeter-session=lightdm-gtk-greeter
 user-session=xfce
+autologin-user=anlight
+autologin-user-timeout=0
+autologin-session=xfce
 EOF
 
-# first-boot: give the live user a known password (anlight / aegis) so the greeter works
+# first boot: give the live user a known password (for sudo) + the right groups
 mkdir -p /usr/local/lib/anlight
 cat > /usr/local/lib/anlight/set-pass.sh <<'EOF'
 #!/bin/sh
 if id anlight >/dev/null 2>&1; then
   echo 'anlight:aegis' | chpasswd 2>/dev/null || true
+  usermod -aG sudo,autologin,nopasswdlogin anlight 2>/dev/null || true
 fi
 EOF
 chmod +x /usr/local/lib/anlight/set-pass.sh
