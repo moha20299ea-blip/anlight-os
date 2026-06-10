@@ -128,16 +128,16 @@ Everything that defines the OS lives in `config/` (package lists, theme configs,
 
 We are **Aegis Raid**. We don't tell you our names. We don't need to.
 
-We're a collective of young hackers, builders, and digital guardians who got **sick and tired** of watching the internet rot. Sick of opening a screen and finding **predators stalking children**. Sick of the **scammers** draining grandparents' life savings. Sick of the **traffickers**, the **CSAM** peddlers, the **gore** dealers, the parasites who hide in the dark corners of the clearnet and crawl even deeper into **Tor**, thinking the shadows make them untouchable.
+We're a collective of young hackers, builders, and digital guardians who got **sick and tired** of watching the internet rot. Sick of opening a screen and finding **predators stalking children**. Sick of the **scammers** draining grandparents' life savings. Sick of the **money launderers**, the **illegal arms** dealers, the **hitmen-for-hire**, the **traffickers**, the **CSAM** peddlers, the **gore** merchants, the **black-hat hackers** wrecking lives for a payday — every parasite hiding in the dark corners of the clearnet and crawling even deeper into **Tor**, thinking the shadows make them untouchable.
 
 They were wrong. The shadows are where we **hunt**.
 
-**Hear this clearly:** if you prey on children, if you scam the vulnerable, if you trade in abuse and call it a business — you are not anonymous, you are not safe, and you are not welcome on *our* internet. You are **vermin**, and we are the light that drags vermin out from under the floorboards. 🔦
+**Hear this clearly:** if you prey on children, scam the vulnerable, launder dirty money, traffic weapons, sell murder, or hack to ruin lives — you are not anonymous, you are not safe, and you are not welcome on *our* internet. You are **vermin**, and we are the light that drags vermin out from under the floorboards. 🔦
 
 This is bigger than one OS. **Anlight is a weapon for the people who fight back.** Every tool we ship, every line we write, exists to tilt the field toward the defenders — the researchers, the reporters, the parents, the cops, the kids who deserve a safer net than the one they were handed.
 
 **Our code of war:**
-- 🕯️ **Expose, don't avenge.** We investigate, we document, we hand evidence to the authorities who can end it. Justice, not vigilante chaos. Well, if this doesn't WORK!!, WELL WILL ACT BY OURSELVES, WILL RUIN YOUR LIVES/LIFES, we will hurt you, will you EXPOSE YOU, till you die crying...!
+- ⚠️ **This is your only warning.** We expose, we document, we deliver you to the people who put you in a cage — that's the *clean* way, and it's already coming for you. But understand this clearly: the day you hurt the innocent, you made enemies who do not sleep, do not forget, and do not stop. We will find you. We will drag you into the light. We will make the whole world learn your name and watch you rot for what you did. You thought the dark hid you — it just made you easier to corner. **Run if you want. It changes nothing.**
 - 🛡️ **Protect the victim first.** Every action starts and ends with the person being hurt.
 - 🌍 **Light *and* dark.** Clearnet, deep web, Tor — wherever the predators run, the tooling follows.
 - 📣 **Arm the good guys.** Free tools. Open knowledge. No gatekeeping the people doing the right thing.
