@@ -1,0 +1,56 @@
+/* Anlight OS - Launchpad: fullscreen blurred app grid */
+* {
+    background-color: transparent;
+    text-color:       #c0caf5;
+    font:             "Nunito Sans 13";
+}
+window {
+    fullscreen:       true;
+    background-color:  #0a0a16cc;
+    padding:          70px 160px;
+}
+mainbox {
+    children:         [ inputbar, listview ];
+    spacing:          30px;
+}
+inputbar {
+    children:         [ prompt, entry ];
+    background-color: #ffffff18;
+    border-radius:    16px;
+    padding:          14px 22px;
+    margin:           0px 32% 10px 32%;
+}
+prompt {
+    text-color:       #7dcfff;
+    margin:           0px 10px 0px 0px;
+}
+entry {
+    placeholder:        "Search apps...";
+    placeholder-color:  #7f88b3;
+}
+listview {
+    columns:          6;
+    lines:            4;
+    spacing:          26px;
+    cycle:            true;
+    layout:           vertical;
+    flow:             horizontal;
+    fixed-height:     false;
+}
+element {
+    orientation:      vertical;
+    padding:          18px;
+    border-radius:    18px;
+    spacing:          10px;
+}
+element selected {
+    background-color: #6D5BFF55;
+}
+element-icon {
+    size:             72px;
+    horizontal-align: 0.5;
+}
+element-text {
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+}

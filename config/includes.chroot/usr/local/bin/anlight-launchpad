@@ -1,0 +1,3 @@
+#!/bin/sh
+# Anlight OS - fullscreen Launchpad-style app grid (rofi)
+exec rofi -show drun -theme "$HOME/.config/rofi/launchpad.rasi"

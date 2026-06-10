@@ -9,7 +9,7 @@ xfce4-terminal
 xfce4-whiskermenu-plugin
 picom
 plank
-xfdashboard
+rofi
 conky-all
 arc-theme
 gnome-themes-extra

@@ -11,9 +11,6 @@ picom --config "$HOME/.config/picom/picom.conf" -b &
 # desktop widget HUD
 ( sleep 2; conky -c "$HOME/.config/conky/conky.conf" ) &
 
-# fullscreen Launchpad daemon (Super key toggles the app grid)
-( sleep 1; xfdashboard --daemonize ) &
-
 # startup chime (then silence)
 ( sleep 2; paplay /usr/share/sounds/anlight/startup.oga 2>/dev/null ) &
 

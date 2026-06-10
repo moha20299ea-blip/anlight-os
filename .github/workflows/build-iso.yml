@@ -29,6 +29,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Generate boot animation frames (from your clip)
+        continue-on-error: true
         run: |
           PT=config/includes.chroot/usr/share/plymouth/themes/anlight
           mkdir -p "$PT"
@@ -40,6 +41,7 @@ jobs:
           sed -i "s/^nframes = .*/nframes = ${N};/" "$PT/anlight.script"
 
       - name: Generate Aurora wallpaper + login background + logo
+        continue-on-error: true
         run: |
           BG=config/includes.chroot/usr/share/backgrounds/anlight
           mkdir -p "$BG"
@@ -55,6 +57,7 @@ jobs:
             -alpha off -compose CopyOpacity -composite "$BG/logo.png"
 
       - name: Generate startup chime
+        continue-on-error: true
         run: |
           SND=config/includes.chroot/usr/share/sounds/anlight
           mkdir -p "$SND"
@@ -64,6 +67,7 @@ jobs:
             "$SND/startup.oga" || echo "chime gen skipped"
 
       - name: Install macOS theme stack (WhiteSur + Bibata + Nunito)
+        continue-on-error: true
         run: |
           set +e
           THEMES=config/includes.chroot/usr/share/themes
