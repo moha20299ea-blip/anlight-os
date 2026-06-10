@@ -1,29 +1,135 @@
-# Anlight OS 🛡️
+<div align="center">
 
-A lightweight, elegant, **cybersecurity-focused Linux distro** by **Aegis Raid**.
+# 🛡️ Anlight OS
 
-Debian-based · XFCE + animated compositor · curated white-hat toolkit · one-command installs.
+### The lightweight, beautiful operating system built for white-hat hackers.
 
-## ✨ What makes it Anlight
-- **Beautiful & light** — XFCE tuned with `picom` (blur, rounded corners, fade & zoom animations) on a slim Debian base.
-- **Powerful out of the box** — nmap, wireshark, aircrack-ng, john, hydra, hashcat, sqlmap, radare2, and more preinstalled.
-- **Stupidly easy installs** — the `anlight-get` tool:
-  ```bash
-  anlight-get nmap                          # system package
-  anlight-get pip:impacket                  # python tool
-  anlight-get https://github.com/you/tool   # any github repo, auto-setup
-  anlight-get metasploit                    # heavy tools, official installer
-  ```
+*Aurora-glass desktop. Pro-grade security toolkit. Install anything with one word.*
 
-## 🏗️ How it's built
-The ISO is built **in the cloud** by GitHub Actions (no big disk needed locally).
-Every push to `main` triggers a build; the finished ISO is published as a **Release** download.
+**by Aegis Raid Corp.**
 
-Manual trigger: **Actions → Build Anlight OS ISO → Run workflow**.
+![Build](https://github.com/moha20299ea-blip/anlight-os/actions/workflows/build-iso.yml/badge.svg)
+![Base](https://img.shields.io/badge/base-Debian%20Bookworm-A81D33?logo=debian&logoColor=white)
+![Desktop](https://img.shields.io/badge/desktop-XFCE%20%2B%20Aurora%20Glass-6D5BFF)
+![Made with](https://img.shields.io/badge/built%20in-the%20cloud-00E5FF)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## 📦 Tool philosophy
-The base image stays light. Massive frameworks (Metasploit, Burp, etc.) install **on demand**
-via `anlight-get`, so you only carry the weight you actually use.
+[**⬇️ Download**](https://github.com/moha20299ea-blip/anlight-os/releases) · [**✨ Features**](#-why-anlight) · [**🧰 Toolkit**](#-the-arsenal) · [**🚀 Install**](#-get-anlight) · [**🛠️ Build it yourself**](#%EF%B8%8F-build-it-yourself)
+
+</div>
 
 ---
-*v0.1 "Aurora" — a real, bootable foundation. Iterating toward the dream.* 🌌
+
+## 🌌 What is Anlight OS?
+
+**Anlight OS** is a security-focused Linux distribution that refuses to choose between *powerful* and *beautiful*. It's a lightweight Debian base wrapped in a hand-crafted **"Aurora Glass"** desktop — frosted blur, smooth animations, a floating macOS-style dock — and loaded with a curated arsenal of white-hat tooling.
+
+Most security distros look like they were designed in 2009. Anlight looks like the future, runs like a feather, and hits like a truck. It's the OS we wished existed, so we built it.
+
+> **Made for** pentesters, CTF players, students, and anyone who wants a stunning daily driver that also happens to be a cyber-weapon. 🔪
+
+---
+
+## ⚡ Why Anlight?
+
+| | |
+|---|---|
+| 🪶 **Featherweight** | Slim Debian core — flies on modest hardware, boots fast, sips RAM. |
+| 🌠 **Aurora Glass UI** | Frosted-glass panels, rounded corners, soft shadows, fluid window animations. Genuinely gorgeous. |
+| 🍎 **Floating dock** | A magnifying glass dock with bounce + glow — your apps, one tap away. |
+| 🚀 **Launchpad** | Hit **Super** for a fullscreen, blurred, searchable grid of every app. |
+| 🛡️ **Loaded by default** | nmap, Wireshark, hydra, sqlmap, john, hashcat, aircrack-ng & more — preinstalled. |
+| 🪄 **One-word installs** | `anlight-get <anything>` — packages, Python tools, or *any GitHub repo*. It just works. |
+| 🌐 **Private by design** | Firefox, Tor, OpenVPN, WireGuard, proxychains ready out of the box. |
+| ☁️ **Reproducible** | The entire OS is built in the cloud from this repo. Fork it, tweak it, make it yours. |
+
+---
+
+## 🪄 The magic: `anlight-get`
+
+Installing software on Linux is usually a quest. On Anlight, you say what you want — it appears.
+
+```bash
+anlight-get nmap                          # a system package
+anlight-get pip:impacket                  # a Python tool
+anlight-get https://github.com/x/tool     # ANY GitHub repo — cloned + auto-set-up
+anlight-get metasploit                    # heavy frameworks, official installer
+anlight-get radare2                       # tools not even in the repos — handled
+```
+
+No `apt` vs `pip` vs `git clone && make` vs "read the README for 20 minutes." One command. Done. 🎯
+
+---
+
+## 🧰 The arsenal
+
+**Recon & scanning** · nmap · masscan · whois · dnsutils · netcat
+**Web** · sqlmap · nikto · dirb · wfuzz · ncrack
+**Wireless** · aircrack-ng · wireshark · tshark · macchanger
+**Passwords** · john · hydra · hashcat
+**Reversing & forensics** · gdb · ltrace · strace · binwalk · foremost · exiftool · steghide
+**Anonymity** · tor · openvpn · wireguard · proxychains
+**Dev** · python3 · go · node · build-essential · git · neovim · geany
+
+> The base stays slim on purpose. Massive frameworks (Metasploit, Burp) install **on demand** via `anlight-get`, so you only carry the weight you actually use.
+
+---
+
+## 🎨 Design — "Aurora"
+
+Anlight's look is a deliberate, cohesive system, not a pile of random tweaks:
+
+- **Palette** — a signature violet → cyan gradient (`#6D5BFF → #00E5FF`) on deep space-black
+- **Glass** — heavy `dual_kawase` blur, 14px rounded corners, soft floating shadows
+- **Motion** — fluid ~250ms window zoom/fade, a dock that magnifies + bounces, cross-fading workspaces
+- **Type** — clean Nunito Sans UI · Tokyo Night terminal
+- **Wallpaper** — a living aurora gradient
+- **Boot** — a custom animated splash, with a clean Aurora fallback
+
+---
+
+## 🚀 Get Anlight
+
+1. Head to the [**Releases page**](https://github.com/moha20299ea-blip/anlight-os/releases) and grab the latest ISO.
+2. If it's split into `.partNN` files (GitHub caps files at 2 GB), rejoin them:
+   - **Windows (cmd):** `copy /b anlight-os-XXXX.iso.part00 + anlight-os-XXXX.iso.part01 Anlight-OS.iso`
+   - **Linux/macOS:** `cat anlight-os-*.iso.part* > Anlight-OS.iso`
+3. **Try it live** in [VirtualBox](https://www.virtualbox.org/) / QEMU, or flash a USB with [balenaEtcher](https://etcher.balena.io/).
+
+**Login** → user `anlight` · password `aegis`
+
+> 💡 In a VM: give it ≥ 2.5 GB RAM, 2 CPUs, and **enable 3D acceleration** for the smoothest glass.
+
+---
+
+## 🛠️ Build it yourself
+
+Anlight is built **entirely in the cloud** — no big disk or Linux box required.
+
+1. Fork this repo.
+2. Push any change (or run the **Build Anlight OS ISO** workflow manually).
+3. GitHub Actions spins up Debian, runs `live-build`, generates the themes & boot animation, and publishes a ready-to-flash ISO to your Releases. ✨
+
+Everything that defines the OS lives in `config/` (package lists, theme configs, hooks) and `.github/workflows/`. It's all yours to remix.
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] True animated video wallpaper toggle
+- [ ] One-click light/dark + auto-by-time theme switching
+- [ ] Optional Kali-repo bridge for an even deeper toolkit
+- [ ] A polished first-run welcome & setup app
+- [ ] Persistence + full installer to disk
+
+---
+
+<div align="center">
+
+### 🛡️ Anlight OS — *power, made beautiful.*
+
+Built with obsessive care by **Aegis Raid Corp.**
+
+*If this project goes hard, drop a ⭐ — it genuinely helps.*
+
+</div>
