@@ -29,16 +29,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate boot spinner watermark
+      - name: Blank the boot watermark (clean spinner-only boot)
         continue-on-error: true
         run: |
           PT=config/includes.chroot/usr/share/plymouth/themes/spinner
           mkdir -p "$PT"
-          # "Anlight OS." branding shown under the spinning dots
-          convert -size 760x180 xc:none -gravity center \
-            -font /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf -pointsize 64 \
-            -fill '#e8e4d4' -annotate +0+0 'Anlight OS.' \
-            "$PT/watermark.png" && echo "watermark ok" || echo "watermark gen skipped"
+          # fully transparent watermark => just the spinning dots, no logo/text
+          convert -size 16x16 xc:none "$PT/watermark.png" && echo "blank watermark ok" || echo "skipped"
 
       - name: Generate Aurora wallpaper + login background + logo
         continue-on-error: true
@@ -119,7 +116,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Anlight OS 0.2 build ${{ github.run_number }}
+          name: Anlight OS 0.3 build ${{ github.run_number }}
           files: anlight-os-*
           body: |
             Anlight OS 0.2 "Aurora" — by Aegis Raid Corp.

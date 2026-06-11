@@ -9,10 +9,10 @@ chmod +x /usr/local/bin/anlight-launchpad || true
 
 # OS identity
 cat > /etc/os-release <<'EOF'
-PRETTY_NAME="Anlight OS 0.2 (Aurora)"
+PRETTY_NAME="Anlight OS 0.3 (Aurora)"
 NAME="Anlight OS"
-VERSION="0.2 (Aurora)"
-VERSION_ID="0.2"
+VERSION="0.3 (Aurora)"
+VERSION_ID="0.3"
 ID=anlight
 ID_LIKE=debian
 HOME_URL="https://github.com/moha20299ea-blip/anlight-os"
@@ -25,10 +25,16 @@ echo "anlight" > /etc/hostname
 # message of the day
 cat > /etc/motd <<'EOF'
 
-  Anlight OS 0.2  —  by Aegis Raid Corp.
+  Anlight OS 0.3  -  by Aegis Raid Corp.
   Install anything instantly:  anlight-get <package | pip:x | github-url>
 
 EOF
+
+# faster boot: don't auto-start services that do nothing without config
+systemctl disable openvpn.service 2>/dev/null || true
+
+# guarantee the graphical desktop starts at boot
+systemctl set-default graphical.target 2>/dev/null || true
 
 # default applications: Firefox as browser
 cat > /usr/share/applications/defaults.list <<'EOF'

@@ -1,28 +1,13 @@
 #!/bin/sh
-# Anlight OS - AUTOLOGIN straight to the dark XFCE desktop (no greeter, no cream box).
+# Anlight OS - let live-config handle autologin (standard, battle-tested).
+# We ONLY set a known sudo password; we do NOT fight live-config's session setup.
 set -e
 
-# groups lightdm autologin checks
-groupadd -f autologin || true
-groupadd -f nopasswdlogin || true
-
-# autologin the live user directly into XFCE
-mkdir -p /etc/lightdm/lightdm.conf.d
-cat > /etc/lightdm/lightdm.conf.d/20-anlight.conf <<'EOF'
-[Seat:*]
-user-session=xfce
-autologin-user=anlight
-autologin-user-timeout=0
-autologin-session=xfce
-EOF
-
-# first boot: give the live user a known password (for sudo) + the right groups
 mkdir -p /usr/local/lib/anlight
 cat > /usr/local/lib/anlight/set-pass.sh <<'EOF'
 #!/bin/sh
 if id anlight >/dev/null 2>&1; then
   echo 'anlight:aegis' | chpasswd 2>/dev/null || true
-  usermod -aG sudo,autologin,nopasswdlogin anlight 2>/dev/null || true
 fi
 EOF
 chmod +x /usr/local/lib/anlight/set-pass.sh
@@ -31,7 +16,6 @@ cat > /etc/systemd/system/anlight-firstboot.service <<'EOF'
 [Unit]
 Description=Anlight first-boot user setup
 After=multi-user.target
-Before=lightdm.service
 
 [Service]
 Type=oneshot

@@ -1,5 +1,6 @@
 #!/bin/sh
-# Anlight OS - desktop session bootstrap (wallpaper, compositor, dock, widgets, chime)
+# Anlight OS - desktop session bootstrap
+# (wallpaper, compositor, dock, widgets, tray applets: wifi/bluetooth/power/volume)
 
 # guarantee the aurora wallpaper on every monitor (don't trust a default backdrop)
 (
@@ -10,22 +11,28 @@
   feh --bg-fill /usr/share/backgrounds/anlight/aurora.png 2>/dev/null
 ) &
 
-# liquid-glass compositor
+# liquid-glass compositor (non-fatal if GLX is unavailable in a VM)
 pkill -x picom 2>/dev/null
-picom --config "$HOME/.config/picom/picom.conf" -b &
+picom --config "$HOME/.config/picom/picom.conf" -b 2>/dev/null &
+
+# system tray applets: wifi, bluetooth, power/battery, volume
+( sleep 2; nm-applet 2>/dev/null ) &
+( sleep 2; blueman-applet 2>/dev/null ) &
+( sleep 2; xfce4-power-manager 2>/dev/null ) &
+( sleep 3; start-pulseaudio-x11 2>/dev/null || pulseaudio --start 2>/dev/null ) &
 
 # floating glass dock
-( sleep 1; plank ) &
+( sleep 1; plank 2>/dev/null ) &
 
 # desktop widget HUD
-( sleep 2; conky -c "$HOME/.config/conky/conky.conf" ) &
+( sleep 3; conky -c "$HOME/.config/conky/conky.conf" 2>/dev/null ) &
 
 # startup chime (then silence)
-( sleep 2; paplay /usr/share/sounds/anlight/startup.oga 2>/dev/null ) &
+( sleep 4; paplay /usr/share/sounds/anlight/startup.oga 2>/dev/null ) &
 
 # welcome notification
-( sleep 5; notify-send -i /usr/share/backgrounds/anlight/logo.png \
+( sleep 6; notify-send -i /usr/share/backgrounds/anlight/logo.png \
     "Welcome to Anlight OS" \
-    "by Aegis Raid Corp.  ·  type  anlight-get <package | github-url>  to install anything." ) &
+    "by Aegis Raid Corp.  -  type  anlight-get <package | github-url>  to install anything." 2>/dev/null ) &
 
 exit 0
